@@ -2,9 +2,27 @@ import React, { Component } from 'react'
 import { withAuth0 } from '@auth0/auth0-react';
 import { Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import axios from 'axios';
 
  class Profile extends Component {
+    componentDidMount = () => {
+        if(this.props.auth0.isAuthenticated) {
+          this.props.auth0.getIdTokenClaims()
+          .then(res => {
+            const jwt = res.__raw;
+            const config = {
+              headers: {"Authorization" : `Bearer ${jwt}`},
+              method: 'get',
+              baseURL: process.env.REACT_APP_PORT,
+              url: '/authorize'
+            }
+            axios(config)
+              .then(axiosResults => console.log(axiosResults.data))
+              .catch(err => console.error(err));
+          })
+          .catch(err => console.error(err));
+        }
+      }
     render() {
         return (
             <Card style={{ width: '18rem' }}>
@@ -19,5 +37,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
         )
     }
 }
+
+
 
 export default withAuth0(Profile);
