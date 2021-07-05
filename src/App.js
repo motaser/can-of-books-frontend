@@ -35,9 +35,11 @@ class App extends React.Component {
                     }
               </Route>
               {/* TODO: add a route with a path of '/profile' that renders a `Profile` component */}
-              <Route exact path="/profile">
-                <Profile/>
-              </Route>
+
+              <Route path="/profilesAuthenticated && <Profile/> }</Route>
+
+              
+
             </Switch>
             <Footer />
           </IsLoadingAndError>
