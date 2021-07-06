@@ -3,8 +3,28 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import './BestBooks.css';
 import axios from 'axios';
+
+
+
+
 class MyFavoriteBooks extends React.Component {
-  componentDidMount = () => {
+
+  constructor(props){
+    super(props);
+    this.state=({
+      resultsBook:[],
+      show:''
+    });
+  }
+
+  componentDidMount = async () => {
+
+    let email=this.props.auth0.user.email
+    let axiosData = await axios.get(`http://localhost:8000/?email=${email}`).then(res=>{
+            console.log(res)
+        }).catch(err=>{console.log(err)})
+        console.log(axiosData);
+
     if(this.props.auth0.isAuthenticated) {
       this.props.auth0.getIdTokenClaims()
       .then(res => {
@@ -20,7 +40,10 @@ class MyFavoriteBooks extends React.Component {
           .catch(err => console.error(err));
       })
       .catch(err => console.error(err));
+
+      
     }
+   
   }
   render() {
     return(
@@ -29,6 +52,15 @@ class MyFavoriteBooks extends React.Component {
         <p>
           This is a collection of my favorite books
         </p>
+        {this.state.resultsBook.map(item=>{
+          return (
+            <>
+            <h2>{item.namebook}</h2>
+           <h3>{item.description}</h3>
+           <p>{item.bookDescription}</p>
+            </>
+          )
+       })}
       </Jumbotron>
     )
   }
