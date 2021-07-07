@@ -1,4 +1,4 @@
-Name of feature: ____Lab: Class 11____________________________
+Name of feature: ____Lab: Class 12___________________________
 
 Estimate of time needed to complete: _3 hours____
 
