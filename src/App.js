@@ -47,7 +47,7 @@ class App extends React.Component {
       <>
         <Router>
           
-          {/* <IsLoadingAndError> */}
+     
             <Header />
             <Switch>
               <Route exact path="/">
@@ -67,7 +67,7 @@ class App extends React.Component {
 
             </Switch>
             <Footer />
-          {/* </IsLoadingAndError> */}
+          
         </Router>
       </>
     );
